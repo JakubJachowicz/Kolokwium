@@ -1,0 +1,42 @@
+bool AIWaveNeedClearObsUnits (int player) {
+    unit obstruction = null;
+    wave waveClob = null;
+    wave waveAtck = null;
+    int countClob = 0;
+    int countAtck = 0;
+    int evalAtck = 0;
+ 
+    // Check global option
+    if (AIGetFlag(player, e_flagsClearObs) == false) {
+        return false;
+    }
+ 
+    // Don't clear obstructions in the first 10 minutes (leaves the AI too open to being rushed)
+    if (AIGetTime() < 600) {
+        return false;
+    }
+ 
+    // See if there is any obstruction
+    obstruction = AIGetObstruction(player);
+    if (obstruction == null) {
+        return false;
+    }
+ 
+    // See if the clear obstruction wave is already full
+    waveClob = AIWaveGet(player, c_waveClearObs);
+    countClob = AIWaveUnitCount(waveClob);
+    if (countClob >= 4) {
+        return false;
+    }
+ 
+    // If the attack wave is getting weak, keep units available for it instead
+    waveAtck = AIWaveGet(player, c_waveAttack);
+    countAtck = AIWaveUnitCount(waveAtck);
+    evalAtck = AIWaveEvalRatio(waveAtck, c_evalRange);
+    if (countAtck > 0 && evalAtck < 80) {
+        return false;
+    }
+ 
+    // Yes, units are needed for clear obstruction duty
+    return true;
+}
