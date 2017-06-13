@@ -1,7 +1,11 @@
-bool AIWaveNeedClearObsUnits (int player) {
+bool AIWaveNeedClearObsUnits (int player)
+{
+	// Non-build variables
     unit obstruction = null;
     wave waveClob = null;
     wave waveAtck = null;
+
+	// Variables of type int
     int countClob = 0;
     int countAtck = 0;
     int evalAtck = 0;
