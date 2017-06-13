@@ -1,36 +1,19 @@
-#include <iostream>
-
-#include <conio.h>
-
+void ProtossOpenGnd0 (int player) {
+    AIClearStock(player);
+ 
+    AISetStock( player, 1, c_PB_Nexus );
+    AISetStock( player, 8, c_PU_Probe );
+    AISetStock( player, 1, c_PB_Pylon );
    
-using namespace std;
-
+    // around 100 resources in about 2 units
+    AISetStock( player, 1, c_PU_Zealot );
+    ProtossTechUp(player, 1);
    
-int main()
-
-{
-
-	int r;
-
-	float pi=3.14;      
-
- 	cout << "Pole kola\n";
-
-	cout << "Podaj dlugosc promienia: ";
-
-	cin >> r;
-
- 	cout << "\n"; 
-
-  	int p_kola(pi * (r * r));
-
-  	cout << "Pole wynosi: " << p_kola;
-
-  	getch();
-
-  	return 0;
+                if (AIEnableVeryEasyStockOpen(player, c_PU_Probe)) {
+                               return;
+                }
+ 
+    // around 300 resources in about 3 unit
+                AIAddStringInt(player, c_PU_Stalker, 1);
+                AIAddStringInt(player, AIPickFrom2(c_PU_Zealot, c_PU_Disruptor), 1);
 }
-
-
-    
-
