@@ -1,0 +1,25 @@
+unit AIEarlyDefScoutZerg (int player, unit prev) {
+    unit obs;
+   
+    if (!AIGetFlag(player, e_flagsEarlyDefScout)) {
+        return c_nullUnit;
+    }
+    if (UnitGetType(prev) == c_ZU_Overseer) {
+        return prev;
+    }
+    obs = AIGrabUnit(player, c_ZU_Overseer, c_prioScout, null);
+    if (obs) {
+        return obs;
+    }
+    if (UnitGetType(prev) == c_ZU_Zergling) {
+        return prev;
+    }
+    obs = AIGrabUnit(player, c_ZU_Zergling, c_prioScout, null);
+    if (obs) {
+        return obs;
+    }
+    if (prev) {
+        return prev;
+    }
+    return AIGrabUnit(player, c_ZU_Drone, c_prioScout, null);
+}
